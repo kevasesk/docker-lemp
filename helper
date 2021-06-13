@@ -1,0 +1,13 @@
+phpmyadmin user have no rights (remove vlumes with old settings):
+docker-composer down -v
+
+if php mysql cant login to mysql:
+1) mysql container bash
+2) login root
+3) ALTER USER 'user'@'%' IDENTIFIED WITH mysql_native_password BY 'password';
+4) FLUSH PRIVILEGES; (need?)
+
+Laravel:
+composer create-project laravel/laravel .
+change .env
+php artisan migrate
