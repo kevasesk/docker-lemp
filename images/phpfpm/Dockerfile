@@ -1,6 +1,7 @@
 FROM php:7.3-fpm
-RUN apt-get update && apt-get install -y git zip vim curl libmcrypt-dev libpng-dev libzip-dev  libfreetype6-dev libjpeg62-turbo-dev libpng-dev
+RUN apt-get update && apt-get install -y git zip vim curl libmcrypt-dev libpng-dev libzip-dev  libfreetype6-dev libjpeg62-turbo-dev gcc make autoconf libc-dev pkg-config
 RUN curl --silent --show-error https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
+RUN pecl install mcrypt-1.0.2
 
 # Install extensions using the helper script provided by the base image
 RUN docker-php-ext-install \
