@@ -1,5 +1,11 @@
 FROM php:7.3-fpm
 RUN apt-get update && apt-get install -y git zip vim curl libmcrypt-dev libpng-dev libzip-dev  libfreetype6-dev libjpeg62-turbo-dev gcc make autoconf libc-dev pkg-config
+
+#mailing
+RUN curl -sSLO https://github.com/mailhog/mhsendmail/releases/download/v0.2.0/mhsendmail_linux_amd64 \
+  && chmod +x mhsendmail_linux_amd64 \
+  && mv mhsendmail_linux_amd64 /usr/local/bin/mhsendmail
+
 RUN curl --silent --show-error https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
 RUN pecl install mcrypt-1.0.2
 
