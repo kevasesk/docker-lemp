@@ -11,3 +11,15 @@ Laravel:
 composer create-project laravel/laravel .
 change .env
 php artisan migrate
+
+node install:
+1. download tar.xz
+2.
+sudo mkdir /usr/local/lib/node
+sudo tar -xJvf node-v8.9.4-linux-x64.tar.xz
+sudo mv /usr/local/lib/node/node-v8.9.4-linux-x64 /usr/local/lib/node/nodejs
+3. add to ~/.profile :
+# Nodejs
+export NODEJS_HOME=/usr/local/lib/node/nodejs
+export PATH=$NODEJS_HOME/bin:$PATH
+4. renew ". ~/.profile"
