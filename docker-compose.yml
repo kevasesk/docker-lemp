@@ -20,6 +20,7 @@ services:
           - './src:/var/www/html'
           - './images/nginx:/etc/nginx/conf.d'
 
+
   db:
       image: mysql:5.7
       ports:
@@ -42,10 +43,32 @@ services:
       - 8081:80
 
   mailhog:
-    image: mailhog/mailhog
-    ports:
-      - "1025"
-      - "8025:8025"
+      image: mailhog/mailhog
+      ports:
+          - "1025"
+          - "8025:8025"
+
+  rabbitmq:
+      image: docker.io/bitnami/rabbitmq:3.9
+      ports:
+          - "15672:15672"
+          - "5672:5672"
+      environment:
+          - RABBITMQ_SECURE_PASSWORD=yes
+#          - RABBITMQ_USERNAME=user
+#          - RABBITMQ_PASSWORD=bitnami
+      volumes:
+          - 'rabbitmq_data:/bitnami/rabbitmq/mnesia'
+
+  elasticsearch:
+      image: markoshust/magento-elasticsearch:7.7
+      ports:
+          - "9200:9200"
+          - "9300:9300"
+      environment:
+          - "discovery.type=single-node"
 
 volumes:
   dbdata:
+  rabbitmq_data:
+      driver: local
