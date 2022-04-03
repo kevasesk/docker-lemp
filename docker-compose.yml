@@ -48,27 +48,23 @@ services:
           - "1025"
           - "8025:8025"
 
-  rabbitmq:
-      image: docker.io/bitnami/rabbitmq:3.9
-      ports:
-          - "15672:15672"
-          - "5672:5672"
-      environment:
-          - RABBITMQ_SECURE_PASSWORD=yes
-#          - RABBITMQ_USERNAME=user
-#          - RABBITMQ_PASSWORD=bitnami
-      volumes:
-          - 'rabbitmq_data:/bitnami/rabbitmq/mnesia'
+  rabbit:
+        image: "rabbitmq:3-management"
+        environment:
+            RABBITMQ_DEFAULT_USER: "rabbitmq"
+            RABBITMQ_DEFAULT_PASS: "rabbitmq"
+            RABBITMQ_DEFAULT_VHOST: "localhost"
+        ports:
+            - "15672:15672"
+            - "5672:5672"
 
-  elasticsearch:
-      image: markoshust/magento-elasticsearch:7.7
-      ports:
-          - "9200:9200"
-          - "9300:9300"
-      environment:
-          - "discovery.type=single-node"
+#  elasticsearch:
+#      image: markoshust/magento-elasticsearch:7.7
+#      ports:
+#          - "9200:9200"
+#          - "9300:9300"
+#      environment:
+#          - "discovery.type=single-node"
 
 volumes:
   dbdata:
-  rabbitmq_data:
-      driver: local
