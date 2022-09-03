@@ -21,3 +21,6 @@ export PATH=$NODEJS_HOME/bin:$PATH
 
 #Cron start:
 service cron start|status|stop
+
+#remove all containers with prefix
+docker ps -aq --filter name="NAMEHERE*" | xargs docker stop | xargs docker rm
