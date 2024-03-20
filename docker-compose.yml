@@ -1,8 +1,16 @@
 version: "3"
 
 services:
+    nginx:
+        image: nginx:latest
+        ports:
+            - '80:80'
+            - '443:443'
+        volumes:
+            - './src:/var/www/html'
+            - './images/nginx:/etc/nginx/conf.d'
 
-  php:
+    php:
       build:
           context: .
           dockerfile: ./images/phpfpm/Dockerfile
@@ -10,18 +18,15 @@ services:
           - './src:/var/www/html'
       depends_on:
           - db
+          - nginx
 
-  nginx:
-      image: nginx:latest
-      ports:
-          - '80:80'
-          - '443:443'
-      volumes:
-          - './src:/var/www/html'
-          - './images/nginx:/etc/nginx/conf.d'
+#    tor:
+#      image: dperson/torproxy
+#      ports:
+#        - '8118:8118'
+#        - '9050:9050'
 
-
-  db:
+    db:
       image: mysql:5.7
       ports:
           - "3306:3306"
@@ -33,7 +38,7 @@ services:
       volumes:
           - dbdata:/var/lib/mysql
 
-  phpmyadmin:
+    phpmyadmin:
       image: phpmyadmin/phpmyadmin:latest
       environment:
           PMA_HOST: db
@@ -41,22 +46,22 @@ services:
           PMA_PASSWORD: password
       ports:
       - 8081:80
+#
+#  mailhog:
+#      image: mailhog/mailhog
+#      ports:
+#          - "1025"
+#          - "8025:8025"
 
-  mailhog:
-      image: mailhog/mailhog
-      ports:
-          - "1025"
-          - "8025:8025"
-
-  rabbit:
-        image: "rabbitmq:3-management"
-        environment:
-            RABBITMQ_DEFAULT_USER: "rabbitmq"
-            RABBITMQ_DEFAULT_PASS: "rabbitmq"
-            RABBITMQ_DEFAULT_VHOST: "localhost"
-        ports:
-            - "15672:15672"
-            - "5672:5672"
+#  rabbit:
+#        image: "rabbitmq:3-management"
+#        environment:
+#            RABBITMQ_DEFAULT_USER: "rabbitmq"
+#            RABBITMQ_DEFAULT_PASS: "rabbitmq"
+#            RABBITMQ_DEFAULT_VHOST: "localhost"
+#        ports:
+#            - "15672:15672"
+#            - "5672:5672"
 
 #  elasticsearch:
 #      image: markoshust/magento-elasticsearch:7.7
