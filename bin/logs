@@ -1,2 +1,2 @@
 #!/bin/bash
-docker logs notaria_nginx_1 --tail 300
+docker logs laravel-test_nginx_1 --tail 300

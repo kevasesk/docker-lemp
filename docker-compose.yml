@@ -9,6 +9,8 @@ services:
         volumes:
             - './src:/var/www/html'
             - './images/nginx:/etc/nginx/conf.d'
+        depends_on:
+          - php
 
     php:
       build:
@@ -18,13 +20,6 @@ services:
           - './src:/var/www/html'
       depends_on:
           - db
-          - nginx
-
-#    tor:
-#      image: dperson/torproxy
-#      ports:
-#        - '8118:8118'
-#        - '9050:9050'
 
     db:
       image: mysql:5.7
@@ -46,30 +41,6 @@ services:
           PMA_PASSWORD: password
       ports:
       - 8081:80
-#
-#  mailhog:
-#      image: mailhog/mailhog
-#      ports:
-#          - "1025"
-#          - "8025:8025"
-
-#  rabbit:
-#        image: "rabbitmq:3-management"
-#        environment:
-#            RABBITMQ_DEFAULT_USER: "rabbitmq"
-#            RABBITMQ_DEFAULT_PASS: "rabbitmq"
-#            RABBITMQ_DEFAULT_VHOST: "localhost"
-#        ports:
-#            - "15672:15672"
-#            - "5672:5672"
-
-#  elasticsearch:
-#      image: markoshust/magento-elasticsearch:7.7
-#      ports:
-#          - "9200:9200"
-#          - "9300:9300"
-#      environment:
-#          - "discovery.type=single-node"
 
 volumes:
   dbdata:

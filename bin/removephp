@@ -1,1 +1,1 @@
-docker rm docker-lemp_php_1 && docker image rm docker-lemp_php
+docker rm laravel-test_php_1 && docker image rm laravel-test_php
