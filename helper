@@ -29,6 +29,11 @@ service cron start|status|stop
 
 
 mysql import file:
+
+1)
+docker compose exec -T db mysql -uuser -ppassword database < dump.sql
+
+2)
 +++(utf8mb4_0900_ai_ci -> utf8mb4_general_ci) (notaria->database)
 +++docker cp src/notaria_prod_09_01_24.sql 1b07f8c2bb75:notaria_prod_09_01_24.sql
 +++docker exec -it 1b07f8c2bb75 bash
